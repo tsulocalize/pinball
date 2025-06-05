@@ -512,7 +512,10 @@
     }
     console.log('initializing start');
 
-    const savedNames = localStorage.getItem('mbr_names');
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlNames = urlParams.get('names');
+
+    const savedNames = urlNames ? decodeURIComponent(urlNames) : localStorage.getItem('mbr_names');
     if (savedNames) {
       document.querySelector('#in_names').value = savedNames;
     }
