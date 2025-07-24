@@ -32,11 +32,11 @@ export class RouletteRenderer {
   }
 
   get width() {
-    return this._canvas.width;
+    return this._canvas.clientWidth;
   }
 
   get height() {
-    return this._canvas.height;
+    return this._canvas.clientHeight;
   }
 
   get canvas() {
@@ -55,15 +55,35 @@ export class RouletteRenderer {
 
     document.body.appendChild(this._canvas);
 
+    // const resizing = (entries?: ResizeObserverEntry[]) => {
+    //   const realSize = entries
+    //     ? entries[0].contentRect
+    //     : this._canvas.getBoundingClientRect();
+    //   const width = Math.max(realSize.width / 2, 640);
+    //   const height = (width / realSize.width) * realSize.height;
+    //   this._canvas.width = width;
+    //   this._canvas.height = height;
+    //   this.sizeFactor = width / realSize.width;
+    // };
     const resizing = (entries?: ResizeObserverEntry[]) => {
+      const dpr = window.devicePixelRatio || 1;
       const realSize = entries
         ? entries[0].contentRect
         : this._canvas.getBoundingClientRect();
-      const width = Math.max(realSize.width / 2, 640);
-      const height = (width / realSize.width) * realSize.height;
-      this._canvas.width = width;
-      this._canvas.height = height;
-      this.sizeFactor = width / realSize.width;
+
+      const cssWidth = realSize.width;
+      const cssHeight = realSize.height;
+
+      this._canvas.width = cssWidth * dpr;
+      this._canvas.height = cssHeight * dpr;
+
+      this._canvas.style.width = cssWidth + 'px';
+      this._canvas.style.height = cssHeight + 'px';
+
+      this.sizeFactor = dpr;
+
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      this.ctx.scale(dpr, dpr);
     };
 
     const resizeObserver = new ResizeObserver(resizing);

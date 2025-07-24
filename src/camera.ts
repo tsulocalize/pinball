@@ -110,8 +110,8 @@ export class Camera {
     ctx.translate(-this.x * this._zoom, -this.y * this._zoom);
     ctx.scale(this.zoom, this.zoom);
     ctx.translate(
-      ctx.canvas.width / zoomFactor,
-      ctx.canvas.height / zoomFactor
+      ctx.canvas.clientWidth / zoomFactor,
+      ctx.canvas.clientHeight / zoomFactor
     );
     callback(ctx);
     ctx.restore();
