@@ -55,16 +55,6 @@ export class RouletteRenderer {
 
     document.body.appendChild(this._canvas);
 
-    // const resizing = (entries?: ResizeObserverEntry[]) => {
-    //   const realSize = entries
-    //     ? entries[0].contentRect
-    //     : this._canvas.getBoundingClientRect();
-    //   const width = Math.max(realSize.width / 2, 640);
-    //   const height = (width / realSize.width) * realSize.height;
-    //   this._canvas.width = width;
-    //   this._canvas.height = height;
-    //   this.sizeFactor = width / realSize.width;
-    // };
     const resizing = (entries?: ResizeObserverEntry[]) => {
       const dpr = window.devicePixelRatio || 1;
       const realSize = entries
@@ -124,8 +114,8 @@ export class RouletteRenderer {
       obj.render(
         this.ctx,
         renderParameters,
-        this._canvas.width,
-        this._canvas.height,
+        this._canvas.clientWidth,
+        this._canvas.clientHeight,
       ),
     );
     renderParameters.particleManager.render(this.ctx);
@@ -203,9 +193,9 @@ export class RouletteRenderer {
     this.ctx.save();
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     this.ctx.fillRect(
-      this._canvas.width / 2,
-      this._canvas.height - 168,
-      this._canvas.width / 2,
+      this._canvas.clientWidth / 2,
+      this._canvas.clientHeight - 168,
+      this._canvas.clientWidth / 2,
       168,
     );
     this.ctx.fillStyle = 'white';
@@ -213,15 +203,15 @@ export class RouletteRenderer {
     this.ctx.textAlign = 'right';
     this.ctx.fillText(
       'Winner',
-      this._canvas.width - 10,
-      this._canvas.height - 120,
+      this._canvas.clientWidth - 20,
+      this._canvas.clientHeight - 120,
     );
     this.ctx.font = 'bold 72px sans-serif';
     this.ctx.fillStyle = winner.color;
     this.ctx.fillText(
       winner.name,
-      this._canvas.width - 10,
-      this._canvas.height - 55,
+      this._canvas.clientWidth - 20,
+      this._canvas.clientHeight - 55,
     );
     this.ctx.restore();
   }

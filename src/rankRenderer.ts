@@ -6,7 +6,7 @@ import { Rect } from './types/rect.type';
 export class RankRenderer implements UIObject {
   private _currentY = 0;
   private _targetY = 0;
-  private fontHeight = 16;
+  private fontHeight = 18;
   private _userMoved = 0;
   private _currentWinner = -1;
   private maxY = 0;
@@ -39,7 +39,7 @@ export class RankRenderer implements UIObject {
 
     ctx.save();
     ctx.textAlign = 'right';
-    ctx.font = '10pt sans-serif';
+    ctx.font = '14pt sans-serif';
     ctx.fillStyle = '#666';
     ctx.fillText(`${winners.length} / ${winners.length + marbles.length}`, width - 5, this.fontHeight);
 
@@ -60,7 +60,7 @@ export class RankRenderer implements UIObject {
         );
       }
     });
-    ctx.font = '10pt sans-serif';
+    ctx.font = '14pt sans-serif';
     marbles.forEach((marble: { color: string; name: string }, rank: number) => {
       const y = (rank + winners.length) * this.fontHeight;
       if (y >= startY && y <= startY + ctx.canvas.height) {
